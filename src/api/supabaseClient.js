@@ -5,15 +5,6 @@ const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-/**
- * Helper functions
- */
-export async function fetchHighlights() {
-  const { data, error } = await supabase.from('highlights').select('*').limit(1).single();
-  if (error) throw error;
-  return data;
-}
-
 export async function fetchGames() {
   const { data, error } = await supabase
     .from("games")

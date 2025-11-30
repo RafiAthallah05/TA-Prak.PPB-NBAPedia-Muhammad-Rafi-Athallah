@@ -4,14 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './index.css';
 
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("/sw.js")
-      .then(() => console.log("Service Worker registered"))
-      .catch((err) => console.log("SW registration failed:", err));
-  });
-}
+import { registerSW } from 'virtual:pwa-register'
+registerSW({ immediate: true })
 
 
 createRoot(document.getElementById('root')).render(
