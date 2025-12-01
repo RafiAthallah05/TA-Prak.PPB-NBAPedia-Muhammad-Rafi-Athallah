@@ -23,8 +23,8 @@ export default defineConfig({
         orientation: 'portrait',
         description: 'Informasi NBA lengkap dengan jadwal, standings, statistik dan roster tim',
         icons: [
-          { src: 'nba-logo.png', sizes: '192x192', type: 'image/png' },
-          { src: 'download.png', sizes: '512x512', type: 'image/png' }
+          { src: '/nba-logo.png', sizes: '192x192', type: 'image/png' },
+          { src: '/download.png', sizes: '512x512', type: 'image/png' }
         ]
       },
 
