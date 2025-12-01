@@ -16,6 +16,7 @@ export default defineConfig({
         name: 'NBA Pedia 2025',
         short_name: 'NBA',
         start_url: '/',
+        scope: '/',
         display: 'standalone',
         background_color: '#ffffff',
         theme_color: '#0f4c81',
