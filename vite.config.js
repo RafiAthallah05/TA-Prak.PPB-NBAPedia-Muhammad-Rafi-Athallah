@@ -6,67 +6,48 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
-      devOptions: {
-        enabled: true, // supaya SW juga aktif di mode dev (optional)
-      },
-
+      registerType: 'autoUpdate', // auto update SW
       includeAssets: [
         'favicon.ico',
-        'icon-192.png',
-        'icon-512.png'
+        'nba-logo.png',
+        'download.png'
       ],
-
       manifest: {
         name: 'NBA Pedia 2025',
-        short_name: 'NBA-Pedia',
+        short_name: 'NBA',
         start_url: '/',
-        scope: '/',
         display: 'standalone',
         background_color: '#ffffff',
         theme_color: '#0f4c81',
         orientation: 'portrait',
-        description: 'Informasi NBA lengkap dengan standings, jadwal, statistik dan roster tim',
+        description: 'Informasi NBA lengkap dengan jadwal, standings, statistik dan roster tim',
         icons: [
-          { src: '/icon-192.png', sizes: '192x192', type: 'image/png' },
-          { src: '/icon-512.png', sizes: '512x512', type: 'image/png' }
+          { src: 'nba-logo.png', sizes: '192x192', type: 'image/png' },
+          { src: 'download.png', sizes: '512x512', type: 'image/png' }
         ]
       },
 
+      // Offline caching settings
       workbox: {
-        navigateFallback: '/offline.html',
-
+        navigateFallback: '/offline.html', // halaman fallback offline
         runtimeCaching: [
-          // Cache html/js/css/image static (UI offline)
           {
-            urlPattern: ({ request }) =>
-              request.destination === 'document' ||
-              request.destination === 'script' ||
-              request.destination === 'style' ||
-              request.destination === 'image',
-            handler: 'StaleWhileRevalidate',
+            urlPattern: ({ url }) => url.origin === self.location.origin,
+            handler: 'CacheFirst',
             options: {
               cacheName: 'nba-static-cache',
-              expiration: {
-                maxEntries: 200,
-                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 hari
-              }
+              expiration: { maxEntries: 200, maxAgeSeconds: 60 * 60 * 24 * 30 }
             }
           },
-
-          // Supabase API: selalu coba network dulu
           {
-            urlPattern: /^https:\/\/[a-zA-Z0-9.-]+\.supabase\.co\/.*/,
+            urlPattern: /^https:\/\/[a-zA-Z0-9-.]+\.supabase\.co\/.*/,
             handler: 'NetworkFirst',
             options: {
               cacheName: 'nba-supabase-cache',
-              networkTimeoutSeconds: 5,
-              expiration: {
-                maxEntries: 80,
-                maxAgeSeconds: 60 * 60 * 24 * 7 // 1 minggu
-              }
+              networkTimeoutSeconds: 3,
+              expiration: { maxEntries: 50, maxAgeSeconds: 60 * 60 * 24 * 7 }
             }
-          }
+          },
         ]
       }
     })
