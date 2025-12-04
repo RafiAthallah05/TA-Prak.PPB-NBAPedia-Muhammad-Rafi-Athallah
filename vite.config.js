@@ -9,7 +9,7 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png', 'LOGORN.png'],
+      includeAssets: ['favicon.ico'],
 
       manifest: {
         name: "NBA Pedia 2025",
@@ -21,12 +21,12 @@ export default defineConfig({
         theme_color: "#0f4c81",
         icons: [
           {
-            src: "/download.png",
+            src: "/icons/icon-192.png",
             sizes: "192x192",
             type: "image/png"
           },
           {
-            src: "/download.png",
+            src: "/icons/icon-512.png",
             sizes: "512x512",
             type: "image/png"
           }
@@ -38,14 +38,7 @@ export default defineConfig({
         cleanupOutdatedCaches: true,
         clientsClaim: true,
         maximumFileSizeToCacheInBytes: 5000000,
-      },
-
-      devOptions: {
-        enabled: true,
-        navigateFallback: 'index.html',
-        suppressWarnings: true,
-        type: 'module',
-      },
+      }
     })
   ],
 })
